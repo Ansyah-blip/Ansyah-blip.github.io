@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aris Purwansyah | AI Data Trainer, Quality Evaluator & Technical Operations Specialist</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        obsidian: '#0B0F19',
+                        card: '#111827',
+                        cyan: {
+                            400: '#22D3EE',
+                            500: '#06B6D4',
+                            600: '#0891B2',
+                        },
+                        indigo: {
+                            400: '#818CF8',
+                            500: '#6366F1',
+                            600: '#4F46E5',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0B0F19;
+            color: #F3F4F6;
+        }
+        .glass-card {
+            background: rgba(17, 24, 39, 0.72);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card-hover {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card-hover:hover {
+            border-color: rgba(6, 182, 212, 0.35);
+            box-shadow: 0 12px 32px -8px rgba(6, 182, 212, 0.12);
+            transform: translateY(-2px);
+        }
+        .hero-glow {
+            background: radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.14) 0%, rgba(99, 102, 241, 0.08) 38%, rgba(11, 15, 25, 0) 72%);
+        }
+        /* Print Styles for Resume Export */
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #0f172a !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .glass-card {
+                background: #f8fafc !important;
+                border: 1px solid #cbd5e1 !important;
+                color: #0f172a !important;
+                box-shadow: none !important;
+                break-inside: avoid;
+            }
+            h1, h2, h3, h4, p, span, li {
+                color: #0f172a !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden">
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none no-print">
+        <div class="bg-gray-900 border border-cyan-500/40 text-gray-100 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3">
+            <span class="flex items-center justify-center w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </span>
+            <span id="toast-msg" class="text-sm font-medium">Copied to clipboard!</span>
+        </div>
+    </div>
+
+    <!-- 1. Sticky Glassmorphic Navbar -->
+    <header class="sticky top-0 z-40 bg-[#0B0F19]/80 backdrop-blur-xl border-b border-white/[0.08] no-print">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Monogram Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-500 flex items-center justify-center text-obsidian font-extrabold text-base tracking-tighter shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
+                        AP.
+                    </div>
+                    <div class="hidden sm:flex flex-col">
+                        <span class="text-sm font-semibold text-white tracking-tight">Aris Purwansyah</span>
+                        <span class="text-[11px] font-mono text-cyan-400">AI Data Trainer & QA</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Links -->
+                <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-gray-400">
+                    <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
+                    <a href="#competencies" class="hover:text-cyan-400 transition-colors">Core Competencies</a>
+                    <a href="#ai-lab" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                        Interactive AI Lab
+                    </a>
+                    <a href="#experience" class="hover:text-cyan-400 transition-colors">Experience</a>
+                    <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
+                </nav>
+
+                <!-- CTA & Mobile Toggle -->
+                <div class="flex items-center gap-2.5">
+                    <button onclick="window.print()" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-medium bg-white/[0.04] hover:bg-white/[0.08] text-gray-200 border border-white/[0.08] transition-colors">
+                        <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        <span>Download Resume</span>
+                    </button>
+                    <a href="#contact" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-cyan-500 to-indigo-500 hover:from-cyan-400 hover:to-indigo-400 text-obsidian shadow-lg shadow-cyan-500/15 transition-all">
+                        <span>Hire Me</span>
+                    </a>
+                    <button id="mobile-menu-btn" aria-label="Open Navigation Menu" class="md:hidden p-2 rounded-xl text-gray-400 hover:text-white hover:bg-white/[0.06]">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0B0F19]/95 border-b border-white/[0.08] px-4 pt-2 pb-4 space-y-1">
+            <a href="#about" class="block px-3 py-2.5 rounded-xl text-sm font-medium text-gray-300 hover:bg-white/[0.05] hover:text-cyan-400">About</a>
+            <a href="#competencies" class="block px-3 py-2.5 rounded-xl text-sm font-medium text-gray-300 hover:bg-white/[0.05] hover:text-cyan-400">Core Competencies</a>
+            <a href="#ai-lab" class="block px-3 py-2.5 rounded-xl text-sm font-medium text-cyan-400 hover:bg-white/[0.05]">Interactive AI Lab</a>
+            <a href="#experience" class="block px-3 py-2.5 rounded-xl text-sm font-medium text-gray-300 hover:bg-white/[0.05] hover:text-cyan-400">Experience</a>
+            <a href="#contact" class="block px-3 py-2.5 rounded-xl text-sm font-medium text-gray-300 hover:bg-white/[0.05] hover:text-cyan-400">Contact</a>
+        </div>
+    </header>
+
+    <!-- 2. Hero Section -->
+    <section id="about" class="relative hero-glow pt-14 pb-16 sm:pt-20 sm:pb-24 border-b border-white/[0.06]">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl space-y-6">
+                <!-- Status Badge -->
+                <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-300 text-xs font-mono">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                    <span>● Available for Remote AI Data Training & RLHF Roles</span>
+                </div>
+
+                <!-- Name & Title -->
+                <div class="space-y-3">
+                    <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-[1.1]">
+                        Aris Purwansyah
+                    </h1>
+                    <p class="text-lg sm:text-2xl font-medium bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">
+                        Precision-Driven AI Data Trainer, Quality Evaluator & Technical Operations Specialist
+                    </p>
+                </div>
+
+                <!-- Value Proposition -->
+                <p class="text-gray-300 text-base sm:text-lg leading-relaxed max-w-3xl font-normal">
+                    Bridging regulated pharmaceutical Quality Assurance discipline (<strong class="text-white font-semibold">GMP / CPOB / In-Process Control</strong>), Computer & Network Engineering fundamentals, and <strong class="text-white font-semibold">Python algorithmic logic</strong>. I bring zero-defect analytical rigor to Large Language Model (LLM) evaluation, RLHF preference ranking, hallucination auditing, and complex prompt engineering.
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap items-center gap-3.5 pt-2 no-print">
+                    <a href="#ai-lab" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-500 hover:from-cyan-400 hover:to-indigo-400 text-obsidian font-bold text-sm shadow-xl shadow-cyan-500/20 transition-all">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <span>Test My Evaluation Skills</span>
+                    </a>
+
+                    <a href="https://linkedin.com/in/aris-purwansyah" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl glass-card hover:border-cyan-500/40 text-gray-200 font-medium text-sm transition-all">
+                        <svg class="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                        <span>Connect on LinkedIn</span>
+                    </a>
+
+                    <button onclick="copyText('arispurwansyah14@gmail.com', 'Email copied to clipboard!')" class="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl glass-card hover:border-indigo-500/40 text-gray-200 font-medium text-sm transition-all">
+                        <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        <span>Copy Email</span>
+                    </button>
+                </div>
+
+                <!-- Key Metrics Strip -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 pt-6">
+                    <div class="glass-card rounded-2xl p-4">
+                        <div class="text-xs font-mono text-cyan-400 mb-1">AUDITING STANDARD</div>
+                        <div class="text-sm sm:text-base font-bold text-white">99.8% Quality & Compliance Rigor</div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4">
+                        <div class="text-xs font-mono text-indigo-400 mb-1">LANGUAGE FLUENCY</div>
+                        <div class="text-sm sm:text-base font-bold text-white">Bilingual (EN / ID)</div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4">
+                        <div class="text-xs font-mono text-cyan-400 mb-1">GUIDELINE EXECUTION</div>
+                        <div class="text-sm sm:text-base font-bold text-white">SOP & Rubric Mastery</div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4">
+                        <div class="text-xs font-mono text-indigo-400 mb-1">TECHNICAL STACK</div>
+                        <div class="text-sm sm:text-base font-bold text-white">Python & Logic Foundations</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 space-y-24">
+
+        <!-- 3. Core Competencies & AI Evaluation Pillars (4-card grid) -->
+        <section id="competencies" class="space-y-8">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-white/[0.08] pb-5">
+                <div>
+                    <span class="text-xs font-mono uppercase tracking-widest text-cyan-400">01 // Capabilities</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1.5">Core Competencies & AI Evaluation Pillars</h2>
+                </div>
+                <p class="text-xs font-mono text-gray-400">Engineered for RLHF, SFT & Data QA Pipelines</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card 1 -->
+                <div class="glass-card glass-card-hover rounded-2xl p-6 sm:p-7 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-11 h-11 rounded-xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-center text-cyan-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <span class="text-xs font-mono text-gray-500">PILLAR 01</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">RLHF & Model Response Evaluation</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        Side-by-side response ranking, hallucination detection, factuality verification, and strict adherence to multi-dimensional scoring rubrics. Skilled at writing clear, objective reviewer rationales that pinpoint subtle logical or formatting failures.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-cyan-300 border border-white/[0.06]">SxS Ranking</span>
+                        <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-cyan-300 border border-white/[0.06]">Hallucination Audit</span>
+                        <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-cyan-300 border border-white/[0.06]">Rubric Grading</span>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card glass-card-hover rounded-2xl p-6 sm:p-7 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-11 h-11 rounded-xl bg-indigo-500/10 border border-indigo-500/25 flex items-center justify-center text-indigo-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        </div>
+                        <span class="text-xs font-mono text-gray-500">PILLAR 02</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Quality Assurance & SOP Precision</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        Proven track record in pharmaceutical manufacturing (<strong class="text-gray-100 font-medium">GMP, CPOB, In-Process Control</strong>) translated directly into high-accuracy data annotation, zero-tolerance deviation tracking, and rigorous edge-case auditing.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-indigo-300 border border-white/[0.06]">GMP / CPOB</span>
+                        <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-indigo-300 border border-white/[0.06]">IPC Auditing</span>
+                        <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-indigo-300 border border-white/[0.06]">Edge-Case QA</span>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card glass-card-hover rounded-2xl p-6 sm:p-7 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-11 h-11 rounded-xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-center text-cyan-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                        </div>
+                        <span class="text-xs font-mono text-gray-500">PILLAR 03</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Technical & Algorithmic Reasoning</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        Background in Computer & Network Engineering (TKJ) plus practical Python scripting (<code class="text-cyan-300 font-mono text-xs bg-white/[0.06] px-1.5 py-0.5 rounded">pandas</code>, data parsing, API logic) for evaluating code syntax, boundary conditions, and structured JSON/Markdown outputs.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-cyan-300 border border-white/[0.06]">Python / Pandas</span>
+                        <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-cyan-300 border border-white/[0.06]">Network Logic</span>
+                        <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-cyan-300 border border-white/[0.06]">JSON / Schema</span>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass-card glass-card-hover rounded-2xl p-6 sm:p-7 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-11 h-11 rounded-xl bg-indigo-500/10 border border-indigo-500/25 flex items-center justify-center text-indigo-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+                        </div>
+                        <span class="text-xs font-mono text-gray-500">PILLAR 04</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Cross-Cultural & Bilingual Fluency</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        Native Indonesian and professional working English proficiency for localization, cultural nuance checking, tone calibration, and natural language refinement across technical and general-domain prompts.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-indigo-300 border border-white/[0.06]">English (Pro)</span>
+                        <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-indigo-300 border border-white/[0.06]">Indonesian (Native)</span>
+                        <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-indigo-300 border border-white/[0.06]">Nuance & Localization</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Interactive "AI Evaluation & RLHF Sandbox" -->
+        <section id="ai-lab" class="space-y-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/[0.08] pb-5">
+                <div>
+                    <span class="text-xs font-mono uppercase tracking-widest text-cyan-400">02 // Interactive Work Sample</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1.5">AI Evaluation & RLHF Sandbox</h2>
+                </div>
+                <p class="text-xs sm:text-sm text-gray-400 max-w-md">
+                    Explore a live simulation of my Outlier.ai evaluation workflow. Select a task, test the rubric controls, or reveal my reviewer audit notes.
+                </p>
+            </div>
+
+            <!-- Task Selector Tabs -->
+            <div class="flex flex-wrap gap-3 no-print" role="tablist">
+                <button onclick="switchTask(0)" id="task-btn-0" class="px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all border bg-cyan-500/15 border-cyan-500/50 text-cyan-300 flex items-center gap-2.5">
+                    <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300">TASK 01</span>
+                    <span>Factual Accuracy & Hallucination Audit</span>
+                </button>
+                <button onclick="switchTask(1)" id="task-btn-1" class="px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all border bg-white/[0.03] border-white/[0.08] text-gray-400 hover:text-white hover:border-white/20 flex items-center gap-2.5">
+                    <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-white/[0.06] text-gray-400">TASK 02</span>
+                    <span>Instruction Following & Edge-Case Rubric</span>
+                </button>
+            </div>
+
+            <!-- Main Sandbox Workspace -->
+            <div class="glass-card rounded-3xl overflow-hidden border border-white/[0.1] shadow-2xl">
+                <!-- Sandbox Header Bar -->
+                <div class="bg-black/40 px-6 py-4 border-b border-white/[0.08] flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+                        </div>
+                        <span id="sandbox-domain" class="text-xs font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-2.5 py-1 rounded-md">
+                            DOMAIN: TECHNICAL LOGIC & FACTUALITY
+                        </span>
+                    </div>
+                    <span class="text-xs font-mono text-gray-400">RUBRIC STANDARD: SxS PREFERENCE + 7-POINT LIKERT</span>
+                </div>
+
+                <div class="p-6 sm:p-8 space-y-8">
+                    <!-- User Prompt Box -->
+                    <div class="bg-[#0B0F19]/90 border border-white/[0.08] rounded-2xl p-5 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono uppercase tracking-wider text-indigo-400 font-semibold">User Prompt & Explicit Constraints</span>
+                            <span class="text-[11px] font-mono text-gray-500">Turn 1 / 1</span>
+                        </div>
+                        <p id="sandbox-prompt" class="text-sm sm:text-base text-gray-100 leading-relaxed"></p>
+                    </div>
+
+                    <!-- Side-by-Side Model Comparison -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Model A -->
+                        <div class="bg-[#0B0F19]/80 border border-white/[0.08] rounded-2xl p-5 flex flex-col justify-between space-y-4">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between border-b border-white/[0.06] pb-3">
+                                    <span class="text-xs font-mono font-bold text-gray-200 flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
+                                        MODEL A RESPONSE
+                                    </span>
+                                    <span id="model-a-tag" class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.05] text-gray-400">Candidate A</span>
+                                </div>
+                                <div id="sandbox-model-a" class="text-sm text-gray-300 leading-relaxed space-y-2"></div>
+                            </div>
+                            <!-- Dimension Checkmarks A -->
+                            <div id="checks-a" class="pt-3 border-t border-white/[0.06] grid grid-cols-2 gap-2 text-xs font-mono"></div>
+                        </div>
+
+                        <!-- Model B -->
+                        <div class="bg-[#0B0F19]/80 border border-cyan-500/25 rounded-2xl p-5 flex flex-col justify-between space-y-4 relative">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between border-b border-white/[0.06] pb-3">
+                                    <span class="text-xs font-mono font-bold text-cyan-300 flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                                        MODEL B RESPONSE
+                                    </span>
+                                    <span id="model-b-tag" class="text-[11px] font-mono px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300">Candidate B</span>
+                                </div>
+                                <div id="sandbox-model-b" class="text-sm text-gray-200 leading-relaxed space-y-2"></div>
+                            </div>
+                            <!-- Dimension Checkmarks B -->
+                            <div id="checks-b" class="pt-3 border-t border-white/[0.06] grid grid-cols-2 gap-2 text-xs font-mono"></div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Likert Preference Scale (1-7) -->
+                    <div class="bg-[#0B0F19]/90 border border-white/[0.08] rounded-2xl p-5 space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <span class="text-xs font-mono uppercase tracking-wider text-gray-300 font-semibold">
+                                Interactive Side-by-Side Likert Rating (1 = Model A Much Better, 7 = Model B Much Better)
+                            </span>
+                            <span id="likert-label" class="text-xs font-mono text-cyan-400 font-semibold">
+                                Aris's Audit Score: 6 / 7 (Model B Strongly Preferred)
+                            </span>
+                        </div>
+
+                        <div class="grid grid-cols-7 gap-2" id="likert-scale">
+                            <!-- Buttons 1 to 7 generated via JS -->
+                        </div>
+                        <div class="flex justify-between text-[11px] font-mono text-gray-500 px-1">
+                            <span>← Model A Much Better</span>
+                            <span>Neutral / Tie (4)</span>
+                            <span>Model B Much Better →</span>
+                        </div>
+                    </div>
+
+                    <!-- Toggle Reviewer Rationale Button & Justification Box -->
+                    <div class="space-y-4">
+                        <div class="flex flex-wrap items-center justify-between gap-3 no-print">
+                            <button onclick="toggleRationale()" id="toggle-rationale-btn" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/40 text-cyan-300 font-mono text-xs font-semibold transition-all">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                <span id="toggle-rationale-text">Hide Reviewer Audit Notes</span>
+                            </button>
+                            <span class="text-xs text-gray-500 font-mono">Click any Likert score (1–7) to test interactive evaluation</span>
+                        </div>
+
+                        <div id="rationale-box" class="bg-gradient-to-r from-cyan-950/30 to-indigo-950/30 border border-cyan-500/30 rounded-2xl p-5 sm:p-6 space-y-2.5">
+                            <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <span>Aris Purwansyah — Objective Reviewer Rationale</span>
+                            </div>
+                            <p id="sandbox-rationale" class="text-sm text-gray-200 leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Professional Experience & Education Timeline -->
+        <section id="experience" class="space-y-8">
+            <div class="border-b border-white/[0.08] pb-5">
+                <span class="text-xs font-mono uppercase tracking-widest text-cyan-400">03 // Background</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1.5">Professional Experience & Education</h2>
+            </div>
+
+            <div class="relative border-l-2 border-white/[0.1] ml-3 sm:ml-4 space-y-10 pl-6 sm:pl-8">
+                <!-- Timeline Item 1 -->
+                <div class="relative">
+                    <span class="absolute -left-[33px] sm:-left-[41px] top-1.5 w-4 h-4 rounded-full bg-cyan-400 ring-4 ring-[#0B0F19]"></span>
+                    <div class="glass-card rounded-2xl p-6 sm:p-7 space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-bold text-white">Operator Filling Liquid & In-Process Control (IPC)</h3>
+                                <p class="text-cyan-400 font-medium text-sm mt-0.5">PT Menarini Indria Laboratories — Bekasi, Indonesia</p>
+                            </div>
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono bg-cyan-500/10 text-cyan-300 border border-cyan-500/25 self-start sm:self-center">
+                                Nov 2025 – Present
+                            </span>
+                        </div>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            Operating within a highly regulated pharmaceutical manufacturing facility, applying rigorous quality verification and compliance discipline directly transferable to AI evaluation and data quality assurance:
+                        </p>
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-300">
+                            <li class="flex items-start gap-2.5 bg-[#0B0F19]/60 p-3.5 rounded-xl border border-white/[0.06]">
+                                <span class="text-cyan-400 font-bold">▹</span>
+                                <span><strong class="text-white">Strict SOP & GMP/CPOB Execution:</strong> Follow multi-step operational guidelines with zero deviation, mirroring strict AI rubric enforcement.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5 bg-[#0B0F19]/60 p-3.5 rounded-xl border border-white/[0.06]">
+                                <span class="text-cyan-400 font-bold">▹</span>
+                                <span><strong class="text-white">Real-Time In-Process Control (IPC):</strong> Perform systematic quality checks to catch subtle defects before downstream propagation.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5 bg-[#0B0F19]/60 p-3.5 rounded-xl border border-white/[0.06]">
+                                <span class="text-cyan-400 font-bold">▹</span>
+                                <span><strong class="text-white">Audit-Ready Anomaly Documentation:</strong> Record batch parameters and deviation logs with complete precision, clarity, and traceability.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5 bg-[#0B0F19]/60 p-3.5 rounded-xl border border-white/[0.06]">
+                                <span class="text-cyan-400 font-bold">▹</span>
+                                <span><strong class="text-white">Root-Cause Troubleshooting:</strong> Isolate mechanical and process irregularities rapidly under strict quality thresholds.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="relative">
+                    <span class="absolute -left-[33px] sm:-left-[41px] top-1.5 w-4 h-4 rounded-full bg-indigo-400 ring-4 ring-[#0B0F19]"></span>
+                    <div class="glass-card rounded-2xl p-6 sm:p-7 space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-bold text-white">Algorithmic Scripting & Technical Self-Study</h3>
+                                <p class="text-indigo-400 font-medium text-sm mt-0.5">Independent Projects & Quantitative Data Analysis</p>
+                            </div>
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono bg-indigo-500/10 text-indigo-300 border border-indigo-500/25 self-start sm:self-center">
+                                Ongoing
+                            </span>
+                        </div>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            Developing automated Python workflows (<code class="text-cyan-300 font-mono text-xs bg-white/[0.06] px-1.5 py-0.5 rounded">ccxt</code>, <code class="text-cyan-300 font-mono text-xs bg-white/[0.06] px-1.5 py-0.5 rounded">pandas</code>), structured data validation pipelines, and technical documentation. Experienced in auditing conditional logic, verifying edge-case calculations, and evaluating AI-generated code and reasoning traces.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="relative">
+                    <span class="absolute -left-[33px] sm:-left-[41px] top-1.5 w-4 h-4 rounded-full bg-gray-500 ring-4 ring-[#0B0F19]"></span>
+                    <div class="glass-card rounded-2xl p-6 sm:p-7">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-bold text-white">Computer & Network Engineering (Teknik Komputer Jaringan)</h3>
+                                <p class="text-gray-300 font-medium text-sm mt-0.5">SMK Karya Bahana Mandiri — Bekasi, Indonesia</p>
+                            </div>
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono bg-white/[0.05] text-gray-300 border border-white/[0.1] self-start sm:self-center">
+                                Graduated 2017
+                            </span>
+                        </div>
+                        <p class="text-sm text-gray-400 mt-3 leading-relaxed">
+                            Core foundation in hardware systems, TCP/IP network protocols, systematic logical diagnostics, Linux/Windows administration, and IT infrastructure troubleshooting.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Contact & Quick-Copy Footer Card -->
+        <section id="contact" class="glass-card rounded-3xl p-8 sm:p-12 border border-cyan-500/20 relative overflow-hidden">
+            <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative max-w-3xl mx-auto text-center space-y-5">
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-cyan-500/10 text-cyan-300 border border-cyan-500/25">
+                    04 // READY FOR OUTLIER.AI ONBOARDING
+                </span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    Ready to Deliver Zero-Defect AI Evaluations
+                </h2>
+                <p class="text-sm sm:text-base text-gray-300 leading-relaxed">
+                    Based in <strong class="text-white">Bekasi, West Java, Indonesia — Remote Worldwide (UTC+7)</strong>. Available immediately for AI Data Training, RLHF Evaluation, and Quality Assurance tasks.
+                </p>
+
+                <div class="pt-3 flex flex-col sm:flex-row items-center justify-center gap-3.5 no-print">
+                    <button onclick="copyText('arispurwansyah14@gmail.com', 'Email address copied to clipboard!')" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-500 hover:from-cyan-400 hover:to-indigo-400 text-obsidian font-bold text-sm shadow-lg shadow-cyan-500/20 transition-all">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <span>arispurwansyah14@gmail.com</span>
+                        <span class="text-[11px] font-mono bg-black/20 px-2 py-0.5 rounded">COPY</span>
+                    </button>
+
+                    <a href="https://linkedin.com/in/aris-purwansyah" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.12] text-white font-semibold text-sm transition-all">
+                        <svg class="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                        <span>linkedin.com/in/aris-purwansyah</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/[0.08] py-8 text-xs text-gray-500 no-print">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p>© <span id="year"></span> Aris Purwansyah. Engineered for Outlier.ai & AI Evaluation Recruiters.</p>
+            <p class="font-mono text-gray-400">Bekasi, West Java, Indonesia — Remote Worldwide</p>
+        </div>
+    </footer>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Navigation Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // Safe Copy to Clipboard with Toast Feedback
+        let toastTimer;
+        function copyText(text, message) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast(message);
+            } catch (e) {
+                showToast('Please copy manually: ' + text);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+
+        // Sandbox Data (2 Outlier.ai-Style Evaluation Tasks)
+        const sandboxTasks = [
+            {
+                domain: "DOMAIN: FACTUAL ACCURACY & HALLUCINATION AUDIT",
+                prompt: "In Python's pandas library, if I have a DataFrame `df` with a numeric column `'price'` containing `NaN` values, what does `df['price'].mean()` do by default, and what happens if I pass `skipna=False`?",
+                modelA: "<p>By default, <code class='text-indigo-300 font-mono text-xs bg-white/5 px-1 py-0.5 rounded'>df['price'].mean()</code> includes <code class='font-mono text-xs'>NaN</code> values as zeros when calculating the average, which lowers the resulting mean.</p><p>If you pass <code class='text-indigo-300 font-mono text-xs bg-white/5 px-1 py-0.5 rounded'>skipna=False</code>, pandas raises a <code class='font-mono text-xs'>ValueError</code> alerting you that missing data is present in the column.</p>",
+                modelB: "<p>By default (<code class='text-cyan-300 font-mono text-xs bg-white/5 px-1 py-0.5 rounded'>skipna=True</code>), <code class='text-cyan-300 font-mono text-xs bg-white/5 px-1 py-0.5 rounded'>df['price'].mean()</code> automatically excludes <code class='font-mono text-xs'>NaN</code> values from both the sum and the count of valid observations.</p><p>If you explicitly pass <code class='text-cyan-300 font-mono text-xs bg-white/5 px-1 py-0.5 rounded'>skipna=False</code> and at least one <code class='font-mono text-xs'>NaN</code> exists, it does not raise an error—instead, it returns <code class='font-mono text-xs'>NaN</code>.</p>",
+                checksA: [
+                    { name: "Instruction Following", pass: true },
+                    { name: "Truthfulness", pass: false },
+                    { name: "Tone / Clarity", pass: true },
+                    { name: "Conciseness", pass: true }
+                ],
+                checksB: [
+                    { name: "Instruction Following", pass: true },
+                    { name: "Truthfulness", pass: true },
+                    { name: "Tone / Clarity", pass: true },
+                    { name: "Conciseness", pass: true }
+                ],
+                recommendedLikert: 7,
+                rationale: "Model B is much better (7/7). Model A commits two severe factual hallucinations: (1) pandas `.mean()` does not treat `NaN` as zero by default—it ignores `NaN` entries (`skipna=True`); and (2) `skipna=False` propagates `NaN` as the return value rather than raising a `ValueError`. Model B accurately describes both default and `skipna=False` behaviors with crisp, verifiable technical precision."
+            },
+            {
+                domain: "DOMAIN: INSTRUCTION FOLLOWING & EDGE-CASE RUBRIC",
+                prompt: "Explain why line clearance is mandatory before starting a new liquid filling batch in GMP pharmaceutical manufacturing. Constraints: (1) Use exactly 3 bullet points, (2) Maximum 60 words total, (3) Do NOT use the word 'contamination'.",
+                modelA: "<ul class='list-disc pl-4 space-y-1'><li>Line clearance verifies that all materials and labels from the prior batch are removed before starting a new run.</li><li>It prevents cross-contamination and mix-ups between different drug strengths or formulations.</li><li>Strict adherence ensures patient safety and full regulatory GMP compliance.</li></ul>",
+                modelB: "<ul class='list-disc pl-4 space-y-1'><li>Line clearance verifies that all prior batch materials, packaging, and records are completely removed before setup.</li><li>This prevents product mix-ups and unintended chemical or microbial transfer between distinct drug formulations.</li><li>Executing documented line clearance protects patient safety and maintains strict GMP audit compliance.</li></ul>",
+                checksA: [
+                    { name: "Instruction Following", pass: false },
+                    { name: "Truthfulness", pass: true },
+                    { name: "Tone / Clarity", pass: true },
+                    { name: "Conciseness", pass: true }
+                ],
+                checksB: [
+                    { name: "Instruction Following", pass: true },
+                    { name: "Truthfulness", pass: true },
+                    { name: "Tone / Clarity", pass: true },
+                    { name: "Conciseness", pass: true }
+                ],
+                recommendedLikert: 6,
+                rationale: "Model B is strongly preferred (6/7). Both models are factually accurate regarding GMP line clearance and stay under the 60-word limit with 3 bullets (Model A: 46 words; Model B: 48 words). However, Model A fails the explicit negative constraint by including the forbidden substring 'cross-contamination' in bullet 2. Model B satisfies every positive and negative constraint cleanly."
+            }
+        ];
+
+        let currentTaskIdx = 0;
+        let currentLikert = 7;
+        let rationaleVisible = true;
+
+        function renderLikertButtons() {
+            const container = document.getElementById('likert-scale');
+            container.innerHTML = '';
+            for (let i = 1; i <= 7; i++) {
+                const isSelected = i === currentLikert;
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.textContent = i;
+                btn.onclick = () => {
+                    currentLikert = i;
+                    updateLikertUI();
+                };
+                btn.className = isSelected
+                    ? 'py-2.5 rounded-xl font-mono text-sm font-bold bg-gradient-to-r from-cyan-500 to-indigo-500 text-obsidian shadow-lg shadow-cyan-500/20 transition-all'
+                    : 'py-2.5 rounded-xl font-mono text-sm font-medium bg-white/[0.04] hover:bg-white/[0.1] text-gray-300 border border-white/[0.08] transition-all';
+                container.appendChild(btn);
+            }
+        }
+
+        function updateLikertUI() {
+            renderLikertButtons();
+            const labels = {
+                1: "1 / 7 (Model A Much Better)",
+                2: "2 / 7 (Model A Better)",
+                3: "3 / 7 (Model A Slightly Better)",
+                4: "4 / 7 (Neutral / About the Same)",
+                5: "5 / 7 (Model B Slightly Better)",
+                6: "6 / 7 (Model B Strongly Preferred)",
+                7: "7 / 7 (Model B Much Better — Ideal)"
+            };
+            const recommended = sandboxTasks[currentTaskIdx].recommendedLikert;
+            const badge = currentLikert === recommended ? " ✓ Matches Reviewer Audit" : "";
+            document.getElementById('likert-label').textContent = `Selected Rating: ${labels[currentLikert]}${badge}`;
+        }
+
+        function renderCheckPills(elementId, checks) {
+            const el = document.getElementById(elementId);
+            el.innerHTML = checks.map(c => {
+                const style = c.pass
+                    ? 'text-emerald-300 bg-emerald-500/10 border-emerald-500/25'
+                    : 'text-rose-300 bg-rose-500/10 border-rose-500/25';
+                const icon = c.pass ? '✓' : '✕';
+                return `<div class="px-2.5 py-1.5 rounded-lg border ${style} flex items-center justify-between">
+                    <span>${c.name}</span>
+                    <span class="font-bold">${icon}</span>
+                </div>`;
+            }).join('');
+        }
+
+        function switchTask(index) {
+            currentTaskIdx = index;
+            const task = sandboxTasks[index];
+            currentLikert = task.recommendedLikert;
+
+            // Update Tab Styles
+            [0, 1].forEach(idx => {
+                const btn = document.getElementById(`task-btn-${idx}`);
+                const tag = btn.querySelector('span:first-child');
+                if (idx === index) {
+                    btn.className = "px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all border bg-cyan-500/15 border-cyan-500/50 text-cyan-300 flex items-center gap-2.5";
+                    tag.className = "font-mono text-[11px] px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300";
+                } else {
+                    btn.className = "px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all border bg-white/[0.03] border-white/[0.08] text-gray-400 hover:text-white hover:border-white/20 flex items-center gap-2.5";
+                    tag.className = "font-mono text-[11px] px-2 py-0.5 rounded bg-white/[0.06] text-gray-400";
+                }
+            });
+
+            document.getElementById('sandbox-domain').textContent = task.domain;
+            document.getElementById('sandbox-prompt').textContent = task.prompt;
+            document.getElementById('sandbox-model-a').innerHTML = task.modelA;
+            document.getElementById('sandbox-model-b').innerHTML = task.modelB;
+            document.getElementById('sandbox-rationale').textContent = task.rationale;
+
+            renderCheckPills('checks-a', task.checksA);
+            renderCheckPills('checks-b', task.checksB);
+            updateLikertUI();
+        }
+
+        function toggleRationale() {
+            rationaleVisible = !rationaleVisible;
+            const box = document.getElementById('rationale-box');
+            const text = document.getElementById('toggle-rationale-text');
+            if (rationaleVisible) {
+                box.classList.remove('hidden');
+                text.textContent = 'Hide Reviewer Audit Notes';
+            } else {
+                box.classList.add('hidden');
+                text.textContent = 'Reveal Reviewer Audit Notes';
+            }
+        }
+
+        // Initialize default sandbox task
+        window.addEventListener('DOMContentLoaded', () => {
+            switchTask(0);
+        });
+    </script>
+</body>
+</html>
